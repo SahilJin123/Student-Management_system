@@ -1,0 +1,22 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: student-management-system #you app name but no caps
+  annotations:
+    version: "v0.0.1"
+    description: "To manage Student Information"
+spec:
+  components:
+    - name: component #name your component 
+      type: webservice
+      properties:
+        image: student-management-system:v1.0.0  #name of your dockerimage on dockerhub
+        ports:
+        - port: 8080  #port u used at the time of deployment 
+          expose: true
+      traits:
+      - type: napptive-ingress # Set to napptive-ingress      
+        properties:
+          name: nginx-ingress # (Optional) endpoint name can be anything 
+          port: 80 # (Required) port  where the service is listening for incomming connections.
+          path: / # (Required) path to be exposed
